@@ -56,7 +56,7 @@
             // btnSystemAudioPanel
             // 
             this.btnSystemAudioPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSystemAudioPanel.Location = new System.Drawing.Point(0, 444);
+            this.btnSystemAudioPanel.Location = new System.Drawing.Point(0, 445);
             this.btnSystemAudioPanel.Name = "btnSystemAudioPanel";
             this.btnSystemAudioPanel.Size = new System.Drawing.Size(165, 34);
             this.btnSystemAudioPanel.TabIndex = 3;
