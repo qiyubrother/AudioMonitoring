@@ -75,6 +75,7 @@
             this.trackBarMicrophone.Size = new System.Drawing.Size(272, 45);
             this.trackBarMicrophone.TabIndex = 14;
             this.trackBarMicrophone.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarMicrophone.ValueChanged += new System.EventHandler(this.trackBarMicrophone_ValueChanged);
             // 
             // lblTitle
             // 

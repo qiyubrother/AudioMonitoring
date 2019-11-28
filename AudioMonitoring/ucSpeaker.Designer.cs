@@ -97,6 +97,7 @@
             this.trackBarSpeaker.Size = new System.Drawing.Size(272, 45);
             this.trackBarSpeaker.TabIndex = 20;
             this.trackBarSpeaker.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarSpeaker.ValueChanged += new System.EventHandler(this.trackBarSpeaker_ValueChanged);
             // 
             // ucSpeaker
             // 

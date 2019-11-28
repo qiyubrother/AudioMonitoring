@@ -47,5 +47,16 @@ namespace AudioMonitoring
                 }
             }
         }
+
+        private void trackBarSpeaker_ValueChanged(object sender, EventArgs e)
+        {
+            foreach (MMDevice deviceRender in DevEnum.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
+            {
+                if (deviceRender.FriendlyName == Title)
+                {
+                    deviceRender.AudioEndpointVolume.MasterVolumeLevelScalar = 1.0f * trackBarSpeaker.Value / 100;
+                }
+            }
+        }
     }
 }
