@@ -34,6 +34,7 @@
             this.pnlMain = new System.Windows.Forms.Panel();
             this.btnSystemAudioPanel = new System.Windows.Forms.Button();
             this.chkDefault = new System.Windows.Forms.CheckBox();
+            this.chkTopmost = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // timer1
@@ -76,11 +77,25 @@
             this.chkDefault.UseVisualStyleBackColor = true;
             this.chkDefault.CheckedChanged += new System.EventHandler(this.chkDefault_CheckedChanged);
             // 
+            // chkTopmost
+            // 
+            this.chkTopmost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chkTopmost.AutoSize = true;
+            this.chkTopmost.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chkTopmost.Location = new System.Drawing.Point(328, 453);
+            this.chkTopmost.Name = "chkTopmost";
+            this.chkTopmost.Size = new System.Drawing.Size(141, 25);
+            this.chkTopmost.TabIndex = 5;
+            this.chkTopmost.Text = "总在最前端显示";
+            this.chkTopmost.UseVisualStyleBackColor = true;
+            this.chkTopmost.CheckedChanged += new System.EventHandler(this.chkTopmost_CheckedChanged);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 479);
+            this.Controls.Add(this.chkTopmost);
             this.Controls.Add(this.chkDefault);
             this.Controls.Add(this.btnSystemAudioPanel);
             this.Controls.Add(this.pnlMain);
@@ -99,6 +114,7 @@
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Button btnSystemAudioPanel;
         private System.Windows.Forms.CheckBox chkDefault;
+        private System.Windows.Forms.CheckBox chkTopmost;
     }
 }
 

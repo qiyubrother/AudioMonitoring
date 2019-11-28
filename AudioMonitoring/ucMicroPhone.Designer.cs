@@ -50,13 +50,13 @@
             // chkMicrophoneMute
             // 
             this.chkMicrophoneMute.AutoSize = true;
-            this.chkMicrophoneMute.Enabled = false;
             this.chkMicrophoneMute.Location = new System.Drawing.Point(19, 24);
             this.chkMicrophoneMute.Name = "chkMicrophoneMute";
             this.chkMicrophoneMute.Size = new System.Drawing.Size(48, 16);
             this.chkMicrophoneMute.TabIndex = 16;
             this.chkMicrophoneMute.Text = "静音";
             this.chkMicrophoneMute.UseVisualStyleBackColor = true;
+            this.chkMicrophoneMute.CheckedChanged += new System.EventHandler(this.chkMicrophoneMute_CheckedChanged);
             // 
             // label2
             // 
@@ -69,7 +69,6 @@
             // 
             // trackBarMicrophone
             // 
-            this.trackBarMicrophone.Enabled = false;
             this.trackBarMicrophone.Location = new System.Drawing.Point(180, 13);
             this.trackBarMicrophone.Maximum = 100;
             this.trackBarMicrophone.Name = "trackBarMicrophone";

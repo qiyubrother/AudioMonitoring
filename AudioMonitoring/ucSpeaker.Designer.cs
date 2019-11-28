@@ -72,13 +72,13 @@
             // chkSpeakerMute
             // 
             this.chkSpeakerMute.AutoSize = true;
-            this.chkSpeakerMute.Enabled = false;
             this.chkSpeakerMute.Location = new System.Drawing.Point(19, 24);
             this.chkSpeakerMute.Name = "chkSpeakerMute";
             this.chkSpeakerMute.Size = new System.Drawing.Size(48, 16);
             this.chkSpeakerMute.TabIndex = 22;
             this.chkSpeakerMute.Text = "静音";
             this.chkSpeakerMute.UseVisualStyleBackColor = true;
+            this.chkSpeakerMute.CheckedChanged += new System.EventHandler(this.chkSpeakerMute_CheckedChanged);
             // 
             // label2
             // 
@@ -91,7 +91,6 @@
             // 
             // trackBarSpeaker
             // 
-            this.trackBarSpeaker.Enabled = false;
             this.trackBarSpeaker.Location = new System.Drawing.Point(180, 13);
             this.trackBarSpeaker.Maximum = 100;
             this.trackBarSpeaker.Name = "trackBarSpeaker";

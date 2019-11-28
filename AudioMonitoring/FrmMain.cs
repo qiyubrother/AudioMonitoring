@@ -162,5 +162,10 @@ namespace AudioMonitoring
                 }
             }
         }
+
+        private void chkTopmost_CheckedChanged(object sender, EventArgs e)
+        {
+            TopMost = chkTopmost.Checked;
+        }
     }
 }

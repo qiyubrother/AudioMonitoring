@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NAudio.CoreAudioApi;
 
 namespace AudioMonitoring
 {
     public partial class ucMicroPhone : UserControl
     {
+        private MMDeviceEnumerator DevEnum = new MMDeviceEnumerator();
         public ucMicroPhone()
         {
             InitializeComponent();
@@ -34,5 +36,16 @@ namespace AudioMonitoring
 
         public string Title => lblTitle.Text;
         public bool IsDefault => chkDefault.Checked;
+
+        private void chkMicrophoneMute_CheckedChanged(object sender, EventArgs e)
+        {
+            foreach (MMDevice deviceRender in DevEnum.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active))
+            {
+                if (deviceRender.FriendlyName == Title)
+                {
+                    deviceRender.AudioEndpointVolume.Mute = chkMicrophoneMute.Checked;
+                }
+            }
+        }
     }
 }
