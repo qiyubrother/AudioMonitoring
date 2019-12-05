@@ -81,41 +81,50 @@ namespace AudioMonitoring
                 auPanelMicrophone.InitAudioPanel(devName, isMicrophoneMute, microphoneValue, defaultRender.FriendlyName == devName);
             }
 
-            //foreach (MMDevice deviceRender in DevEnum.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
-            //{
-            //    var defaultRender = DevEnum.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            //    UcAudio auPanel = null;
-            //    var devName = deviceRender.FriendlyName;
-            //    var isSpeakerMute = deviceRender.AudioEndpointVolume.Mute;
-            //    var isMicrophoneMute = false;
-            //    var speakerValue = 0;
-            //    var microphoneValue = 0;
-            //    foreach (var c in flowLayoutPanel1.Controls)
-            //    {
-            //        var au = c as UcAudio;
-            //        if (au.Title == devName)
-            //        {
-            //            auPanel = au;
-            //            break;
-            //        }
-            //    }
-            //    if (auPanel == null)
-            //    {
-            //        auPanel = new UcAudio();
-            //        flowLayoutPanel1.Controls.Add(auPanel);
-            //    }
-
-            //    speakerValue = (int)(deviceRender.AudioEndpointVolume.MasterVolumeLevelScalar * 100); // 扬声器音量
-            //    foreach (MMDevice deviceCapture in DevEnum.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active))
-            //    {
-            //        if (devName == deviceCapture.FriendlyName)
-            //        {
-            //            microphoneValue = (int)(deviceCapture.AudioEndpointVolume.MasterVolumeLevelScalar * 100); // 麦克风音量
-            //            isMicrophoneMute = deviceCapture.AudioEndpointVolume.Mute;
-            //        }
-            //    }
-            //    auPanel.InitAudioPanel(devName, isSpeakerMute, isMicrophoneMute, speakerValue, microphoneValue, defaultRender.FriendlyName == devName);
-            //}
+            // 移除不必要的数据
+            var lst = new List<Control>();
+            foreach (Control c in pnlMain.Controls)
+            {
+                if (c is ucSpeaker)
+                {
+                    var au = c as ucSpeaker;
+                    bool isFind = false;
+                    foreach (MMDevice deviceRender in DevEnum.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
+                    {
+                        if (deviceRender.FriendlyName == au.Title)
+                        {
+                            isFind = true;
+                            break;
+                        }
+                    }
+                    if (!isFind)
+                    {
+                        lst.Add(c);
+                    }
+                }
+                else if (c is ucMicroPhone)
+                {
+                    var au = c as ucMicroPhone;
+                    bool isFind = false;
+                    foreach (MMDevice deviceCapture in DevEnum.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active))
+                    {
+                        if (deviceCapture.FriendlyName == au.Title)
+                        {
+                            isFind = true;
+                            break;
+                        }
+                    }
+                    if (!isFind)
+                    {
+                        lst.Add(c);
+                    }
+                }
+            }
+            for(var i = lst.Count - 1; i >=0; i--)
+            {
+                pnlMain.Controls.Remove(lst[i]);
+                lst.Remove(lst[i]);
+            }
         }
 
         protected override void OnClosed(EventArgs e)
@@ -167,5 +176,6 @@ namespace AudioMonitoring
         {
             TopMost = chkTopmost.Checked;
         }
+
     }
 }
