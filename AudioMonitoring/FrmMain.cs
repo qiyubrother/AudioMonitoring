@@ -189,7 +189,7 @@ namespace AudioMonitoring
             {
                 sb.Append($"ID={deviceRender.ID}{Environment.NewLine}FriendlyName={deviceRender.FriendlyName}{Environment.NewLine}DeviceFriendlyName={deviceRender.DeviceFriendlyName}{Environment.NewLine}IsDefault={defaultRender.FriendlyName == deviceRender.FriendlyName}{Environment.NewLine}{Environment.NewLine}");
             }
-            sb.Append($"{Environment.NewLine}{Environment.NewLine}");
+            sb.Append($"{Environment.NewLine}");
             sb.Append($"---------- 输出设备 ----------");
             sb.Append($"{Environment.NewLine}");
             foreach (MMDevice deviceCapture in DevEnum.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active))
