@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmDetail));
             this.btnClose = new System.Windows.Forms.Button();
             this.txtDetail = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -53,6 +54,7 @@
             this.txtDetail.Location = new System.Drawing.Point(13, 13);
             this.txtDetail.Multiline = true;
             this.txtDetail.Name = "txtDetail";
+            this.txtDetail.ReadOnly = true;
             this.txtDetail.Size = new System.Drawing.Size(1377, 375);
             this.txtDetail.TabIndex = 1;
             // 
@@ -64,6 +66,7 @@
             this.ClientSize = new System.Drawing.Size(1402, 450);
             this.Controls.Add(this.txtDetail);
             this.Controls.Add(this.btnClose);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmDetail";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "设备明细";
