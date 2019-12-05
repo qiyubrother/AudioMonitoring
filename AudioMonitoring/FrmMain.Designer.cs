@@ -35,6 +35,7 @@
             this.btnSystemAudioPanel = new System.Windows.Forms.Button();
             this.chkDefault = new System.Windows.Forms.CheckBox();
             this.chkTopmost = new System.Windows.Forms.CheckBox();
+            this.btnDetail = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // timer1
@@ -69,7 +70,7 @@
             this.chkDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkDefault.AutoSize = true;
             this.chkDefault.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.chkDefault.Location = new System.Drawing.Point(181, 451);
+            this.chkDefault.Location = new System.Drawing.Point(342, 448);
             this.chkDefault.Name = "chkDefault";
             this.chkDefault.Size = new System.Drawing.Size(141, 25);
             this.chkDefault.TabIndex = 4;
@@ -82,7 +83,7 @@
             this.chkTopmost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkTopmost.AutoSize = true;
             this.chkTopmost.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.chkTopmost.Location = new System.Drawing.Point(328, 453);
+            this.chkTopmost.Location = new System.Drawing.Point(489, 448);
             this.chkTopmost.Name = "chkTopmost";
             this.chkTopmost.Size = new System.Drawing.Size(141, 25);
             this.chkTopmost.TabIndex = 5;
@@ -90,11 +91,23 @@
             this.chkTopmost.UseVisualStyleBackColor = true;
             this.chkTopmost.CheckedChanged += new System.EventHandler(this.chkTopmost_CheckedChanged);
             // 
+            // btnDetail
+            // 
+            this.btnDetail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnDetail.Location = new System.Drawing.Point(171, 445);
+            this.btnDetail.Name = "btnDetail";
+            this.btnDetail.Size = new System.Drawing.Size(165, 34);
+            this.btnDetail.TabIndex = 6;
+            this.btnDetail.Text = "查看明细";
+            this.btnDetail.UseVisualStyleBackColor = true;
+            this.btnDetail.Click += new System.EventHandler(this.btnDetail_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 479);
+            this.Controls.Add(this.btnDetail);
             this.Controls.Add(this.chkTopmost);
             this.Controls.Add(this.chkDefault);
             this.Controls.Add(this.btnSystemAudioPanel);
@@ -115,6 +128,7 @@
         private System.Windows.Forms.Button btnSystemAudioPanel;
         private System.Windows.Forms.CheckBox chkDefault;
         private System.Windows.Forms.CheckBox chkTopmost;
+        private System.Windows.Forms.Button btnDetail;
     }
 }
 

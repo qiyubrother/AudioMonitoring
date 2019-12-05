@@ -28,9 +28,11 @@ namespace AudioMonitoring
 
         private void UpdateUI()
         {
+            var defaultRender = DevEnum.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            var defaultCapture = DevEnum.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Console);
+
             foreach (MMDevice deviceRender in DevEnum.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
             {
-                var defaultRender = DevEnum.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
                 ucSpeaker auPanelSpeaker = null;
                 var devName = deviceRender.FriendlyName;
                 var isSpeakerMute = deviceRender.AudioEndpointVolume.Mute;
@@ -56,7 +58,6 @@ namespace AudioMonitoring
 
             foreach (MMDevice deviceRender in DevEnum.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active))
             {
-                var defaultRender = DevEnum.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Console);
                 ucMicroPhone auPanelMicrophone = null;
                 var devName = deviceRender.FriendlyName;
                 var isMicrophoneMute = deviceRender.AudioEndpointVolume.Mute;
@@ -78,7 +79,7 @@ namespace AudioMonitoring
                     auPanelMicrophone.Dock = DockStyle.Top;
                     pnlMain.Controls.Add(auPanelMicrophone);
                 }
-                auPanelMicrophone.InitAudioPanel(devName, isMicrophoneMute, microphoneValue, defaultRender.FriendlyName == devName);
+                auPanelMicrophone.InitAudioPanel(devName, isMicrophoneMute, microphoneValue, defaultCapture.FriendlyName == devName);
             }
 
             // 移除不必要的数据
@@ -177,5 +178,28 @@ namespace AudioMonitoring
             TopMost = chkTopmost.Checked;
         }
 
+        private void btnDetail_Click(object sender, EventArgs e)
+        {
+            var sb = new StringBuilder();
+            var defaultRender = DevEnum.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+            var defaultCapture = DevEnum.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Console);
+            sb.Append($"---------- 输入设备 ----------");
+            sb.Append($"{Environment.NewLine}");
+            foreach (MMDevice deviceRender in DevEnum.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
+            {
+                sb.Append($"ID={deviceRender.ID}{Environment.NewLine}FriendlyName={deviceRender.FriendlyName}{Environment.NewLine}DeviceFriendlyName={deviceRender.DeviceFriendlyName}{Environment.NewLine}IsDefault={defaultRender.FriendlyName == deviceRender.FriendlyName}{Environment.NewLine}{Environment.NewLine}");
+            }
+            sb.Append($"{Environment.NewLine}{Environment.NewLine}");
+            sb.Append($"---------- 输出设备 ----------");
+            sb.Append($"{Environment.NewLine}");
+            foreach (MMDevice deviceCapture in DevEnum.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active))
+            {
+                sb.Append($"ID={deviceCapture.ID}{Environment.NewLine}FriendlyName={deviceCapture.FriendlyName}{Environment.NewLine}DeviceFriendlyName={deviceCapture.DeviceFriendlyName}{Environment.NewLine}IsDefault={defaultCapture.FriendlyName == deviceCapture.FriendlyName}{Environment.NewLine}{Environment.NewLine}");
+            }
+
+            var frm = new FrmDetail();
+            frm.DetailText = sb.ToString();
+            frm.ShowDialog();
+        }
     }
 }
