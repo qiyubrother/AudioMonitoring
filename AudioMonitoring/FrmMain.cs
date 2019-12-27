@@ -28,58 +28,71 @@ namespace AudioMonitoring
 
         private void UpdateUI()
         {
-            var defaultRender = DevEnum.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
-            var defaultCapture = DevEnum.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Console);
-
-            foreach (MMDevice deviceRender in DevEnum.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
+            try
             {
-                ucSpeaker auPanelSpeaker = null;
-                var devName = deviceRender.FriendlyName;
-                var isSpeakerMute = deviceRender.AudioEndpointVolume.Mute;
-                var speakerValue = 0;
-                foreach (var c in pnlMain.Controls)
+                var defaultRender = DevEnum.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+                foreach (MMDevice deviceRender in DevEnum.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
                 {
-                    var au = c as ucSpeaker;
-                    if (au != null && au.Title == devName)
+                    ucSpeaker auPanelSpeaker = null;
+                    var devName = deviceRender.FriendlyName;
+                    var isSpeakerMute = deviceRender.AudioEndpointVolume.Mute;
+                    var speakerValue = 0;
+                    foreach (var c in pnlMain.Controls)
                     {
-                        auPanelSpeaker = au;
-                        break;
+                        var au = c as ucSpeaker;
+                        if (au != null && au.Title == devName)
+                        {
+                            auPanelSpeaker = au;
+                            break;
+                        }
                     }
+                    speakerValue = (int)(deviceRender.AudioEndpointVolume.MasterVolumeLevelScalar * 100); // 扬声器音量
+                    if (auPanelSpeaker == null)
+                    {
+                        auPanelSpeaker = new ucSpeaker();
+                        auPanelSpeaker.Dock = DockStyle.Top;
+                        pnlMain.Controls.Add(auPanelSpeaker);
+                    }
+                    auPanelSpeaker.InitAudioPanel(devName, isSpeakerMute, speakerValue, defaultRender.FriendlyName == devName);
                 }
-                speakerValue = (int)(deviceRender.AudioEndpointVolume.MasterVolumeLevelScalar * 100); // 扬声器音量
-                if (auPanelSpeaker == null)
-                {
-                    auPanelSpeaker = new ucSpeaker();
-                    auPanelSpeaker.Dock = DockStyle.Top;
-                    pnlMain.Controls.Add(auPanelSpeaker);
-                }
-                auPanelSpeaker.InitAudioPanel(devName, isSpeakerMute, speakerValue, defaultRender.FriendlyName == devName);
+            }
+            catch(Exception ex)
+            {
+
             }
 
-            foreach (MMDevice deviceRender in DevEnum.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active))
+            try
             {
-                ucMicroPhone auPanelMicrophone = null;
-                var devName = deviceRender.FriendlyName;
-                var isMicrophoneMute = deviceRender.AudioEndpointVolume.Mute;
-                var microphoneValue = 0;
-                foreach (var c in pnlMain.Controls)
+                var defaultCapture = DevEnum.GetDefaultAudioEndpoint(DataFlow.Capture, Role.Console);
+                foreach (MMDevice deviceRender in DevEnum.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active))
                 {
-                    var au = c as ucMicroPhone;
-                    if (au != null && au.Title == devName)
+                    ucMicroPhone auPanelMicrophone = null;
+                    var devName = deviceRender.FriendlyName;
+                    var isMicrophoneMute = deviceRender.AudioEndpointVolume.Mute;
+                    var microphoneValue = 0;
+                    foreach (var c in pnlMain.Controls)
                     {
-                        auPanelMicrophone = au;
-                        break;
+                        var au = c as ucMicroPhone;
+                        if (au != null && au.Title == devName)
+                        {
+                            auPanelMicrophone = au;
+                            break;
+                        }
                     }
-                }
-                microphoneValue = (int)(deviceRender.AudioEndpointVolume.MasterVolumeLevelScalar * 100); // 麦克风音量
+                    microphoneValue = (int)(deviceRender.AudioEndpointVolume.MasterVolumeLevelScalar * 100); // 麦克风音量
 
-                if (auPanelMicrophone == null)
-                {
-                    auPanelMicrophone = new ucMicroPhone();
-                    auPanelMicrophone.Dock = DockStyle.Top;
-                    pnlMain.Controls.Add(auPanelMicrophone);
+                    if (auPanelMicrophone == null)
+                    {
+                        auPanelMicrophone = new ucMicroPhone();
+                        auPanelMicrophone.Dock = DockStyle.Top;
+                        pnlMain.Controls.Add(auPanelMicrophone);
+                    }
+                    auPanelMicrophone.InitAudioPanel(devName, isMicrophoneMute, microphoneValue, defaultCapture.FriendlyName == devName);
                 }
-                auPanelMicrophone.InitAudioPanel(devName, isMicrophoneMute, microphoneValue, defaultCapture.FriendlyName == devName);
+            }
+            catch(Exception ex)
+            {
+
             }
 
             // 移除不必要的数据
@@ -142,7 +155,8 @@ namespace AudioMonitoring
             }
             catch (System.Runtime.InteropServices.COMException ex)
             {
-                MessageBox.Show($"{ex.Message}  推断：找不到音响资源。");
+                timer1.Stop();
+                MessageBox.Show($"{ex.Message}  推断：找不到音响资源。监控将停止工作。如需启动监控，请重新启动本软件。");
             }
         }
 
